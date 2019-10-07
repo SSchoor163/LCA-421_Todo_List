@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
+import {TodoService} from './services/todo.service';
+import {AppRoutingModule} from './app-routing.module';
+import {ITodo} from './interfaces/itodo';
+  import { from } from 'rxjs';
+
 
 @Component({
   selector: 'app-root',
@@ -7,27 +12,32 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Todos';
-  todoList: any [] = [];
+  todoList: ITodo [] = [];
   todoTitle: string;
-
-  ngOnInit(){
-    this.todoTitle='';
-    this.todoList = [
-      {title: 'Install Angular CLI', isDone: false},
-    ];
+  todoId: number;
+  constructor(private TodoService: TodoService){
+   
   }
+  ngOnInit(){
+    this.TodoService.addTodoItem({id: 0, title: 'cook fett', isDone: false,isDoing: true, isEditing: false },);
+    this.TodoService.addTodoItem({id: 0, title: 'cook cava', isDone: true,isDoing: false, isEditing: false },);
+    this.TodoService.addTodoItem({id: 0, title: 'cook pappadelli', isDone: false,isDoing: true, isEditing: false },);
+  }
+  
+
 addTodo():void{
-  this.todoList.push({
+  this.TodoService.addTodoItem({
+    id: this.todoId,
     title:this.todoTitle,
-    isDone:false
+    isDone:false,
+    isDoing: false,
+    isEditing: false
   });
   this.todoTitle="";
+  this.todoId++;
 }
-
-deleteTodo(todo:any) {
-  const index = this.todoList.findIndex(todoItem=> todoItem==todo);
-  this.todoList.splice(index,1);
-
+deleteTodo(todo:ITodo){
+  this.TodoService.deleteTodoItem(todo, todo.id)
 }
 
 }

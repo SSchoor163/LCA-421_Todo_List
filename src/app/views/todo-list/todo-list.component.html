@@ -1,0 +1,11 @@
+<ul>
+    <li class="list-group-item" *ngFor="let todo of todoList">
+        <div class="view">
+          <label>{{todo.title}}</label>
+          <div class="float-right">
+              <app-active-todo-modal [todo] = todo></app-active-todo-modal>
+            <app-delete-modal [todo] = todo></app-delete-modal>
+          </div>
+        </div>
+      </li>
+</ul>
