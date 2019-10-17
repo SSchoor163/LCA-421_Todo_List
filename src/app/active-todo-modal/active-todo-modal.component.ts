@@ -4,6 +4,7 @@ import {TodoService} from '../services/todo.service';
 import { RouterLink, RouterState, ActivatedRoute } from '@angular/router';
 import {AppRoutingModule, } from '../app-routing.module';
 import { Route } from '@angular/compiler/src/core';
+import { DataLinkService } from '../services/data-link.service';
 
 
 @Component({
@@ -12,18 +13,16 @@ import { Route } from '@angular/compiler/src/core';
   styleUrls: ['./active-todo-modal.component.scss']
 })
 export class ActiveTodoModalComponent implements OnInit {
-  @Input() todo;
+  @Input() todo:ITodo;
    
-  constructor(private TodoService: TodoService,
-              private activatedRoute:ActivatedRoute,
-              private route:Route) { }
+  constructor(private TodoService: TodoService, private comm:DataLinkService) { }
 
   ngOnInit() {
   }
 
-  toggleActiveTodo(todo:ITodo):void{
-    this.TodoService.toggleActiveTodo(todo, todo.id);
-    
+  toggleActiveTodo():void{
+    this.TodoService.toggleTodoState("Doing",this.todo.id);
+    this.comm.resetView();
     
   }
 

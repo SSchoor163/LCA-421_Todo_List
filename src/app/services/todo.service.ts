@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {ITodo} from '../interfaces/itodo';
   import { from } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -41,9 +42,21 @@ export class TodoService {
     const index  = this.todoList.findIndex(todoItem=>todoItem.id===id);
     this.todoList.splice(index,1);
   }
-  toggleActiveTodo(todo: ITodo, id: number):void{
-    const change= this.todoList.find(t=>t.id===id);
-    if(todo.isDoing) change.isDoing=false;
-    else change.isDoing=true;
+  toggleTodoState(endLane:string, id: number):void{
+    let change= this.todoList.find(t=>t.id===id);
+    let index  = this.todoList.indexOf(change);
+    
+    if(endLane ==="Doing")
+    {
+      change.isDoing = true;
+      change.isDone = false;
+    }else if (endLane === "Done")
+    {
+      change.isDoing = false;
+      change.isDone = true;
+    }else console.log("Error, endlane cause no change" + change);
+    
+    //TODO check cosonle validation then remove when confirmed
+    this.todoList[index] = change;
   }
 }

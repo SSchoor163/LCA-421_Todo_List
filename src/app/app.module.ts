@@ -25,7 +25,7 @@ import { RouterLink, RouterState } from '@angular/router';
     FormsModule,
     NgbModule
   ],
-  providers: [TodoService, RouterState],
+  providers: [TodoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

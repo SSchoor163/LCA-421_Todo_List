@@ -16,7 +16,7 @@
     <a routerLink="done" routerLinkActive="active">Complete Todo's</a>
   </nav>
   
-  <router-outlet></router-outlet>
+  <router-outlet *ngIf="this.comm.reset"></router-outlet>
   
 </ul>
 

@@ -3,6 +3,7 @@ import {TodoService} from './services/todo.service';
 import {AppRoutingModule} from './app-routing.module';
 import {ITodo} from './interfaces/itodo';
   import { from } from 'rxjs';
+import { DataLinkService } from './services/data-link.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class AppComponent {
   todoList: ITodo [] = [];
   todoTitle: string;
   todoId: number;
-  constructor(private TodoService: TodoService){
+  constructor(private TodoService: TodoService, private comm:DataLinkService){
    
   }
   ngOnInit(){
